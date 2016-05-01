@@ -1,16 +1,20 @@
+;this was written in chicken scheme, your milage may vary
+;dont run whole file, copy paste lines 3 to 8 to your
+;interpreter, and then copy the section of code to be run
 (use srfi-1)
 (define (range str stp inc)
   (cond ((< str stp)
 	 (cons str (range (+ str inc) stp inc)))
 	(else '())))
 
-;problem-1
+;problem-1 Multiples of 3 and 5
 (apply + (filter (lambda (x)
 		   (or (integer? (/ x 3))
 		       (integer? (/ x 5))))
 		 (range 0 1000 1)))
 
-;problem-2  linebreaks are separate programs
+;problem-2 even fibonacci numbers
+;linebreaks are separate programs
 (define (fib-max max)
   (let loop ((a 1)(b 2)(c '()))
     (if (> a max) c (loop b (+ a b) (cons a c)))))
@@ -29,7 +33,7 @@
 
 (let fib ((a 1)(b 2))(if (< a 1000)(+ (if (even? a) a 0) (fib b (+ a b)))0)))
 
-;problem-3
+;problem-3 largest prime factor
 (define (prime? number)
   (let help ((test 2))
     (cond ((< test number)
@@ -50,7 +54,7 @@
 	    (loop (+ test 1) number factors))
 	factors)))
 
-;problem-4
+;problem-4 largest palindrome product
 (define (palindrome? number)
   (let ((it (string->list (number->string number))))
     (equal? it (reverse it))))
@@ -69,7 +73,7 @@
 			(r x)))
 		  (sort (flatten l)) >))))
 
-;problem-5
+;problem-5 smallest multiple
 (let ((divisible-up-to
        (lambda (x n)
 	 (let loop ((t 1))
@@ -83,13 +87,13 @@
 	   (printf "~A~N" start))
 	  (else (loop (+ start 1))))))
 
-;problem-6
+;problem-6 sum square difference
 (let* ((numbers (range 1 11 1))
        (sum-squares (apply + (map (lambda (x) (* x x)) numbers)))
        (square-sums ((lambda (x) (* x x)) (apply + numbers))))
   (- sum-squares square-sums))
 
-;problem-7
+;problem-7 10001st prime
 (define (prime? number)
   (let help ((test 2))
     (cond ((< test number)
